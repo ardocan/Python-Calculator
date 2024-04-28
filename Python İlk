@@ -1,0 +1,63 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def hesapla():
+    try:
+        x = float(ilk_deger_entry.get())
+        y = float(ikinci_deger_entry.get())
+        islem = islem_secim.get()
+        
+        if islem == 1:
+            sonuc = x + y
+        elif islem == 2:
+            sonuc = x - y
+        elif islem == 3:
+            sonuc = x * y
+        elif islem == 4:
+            if y == 0:
+                messagebox.showerror("Hata", "Sıfıra bölme hatası! İkinci sayı sıfır olamaz.")
+                return
+            sonuc = x / y
+        
+        sonuc_label.config(text="Sonuç: " + str(sonuc))
+    except ValueError:
+        messagebox.showerror("Hata", "Geçersiz değer girdiniz.")
+
+app = tk.Tk()
+app.title("Hesap Makinesi")
+
+islem_secim = tk.IntVar()
+
+ilk_deger_label = tk.Label(app, text="İlk Değer:")
+ilk_deger_label.grid(row=0, column=0)
+
+ilk_deger_entry = tk.Entry(app)
+ilk_deger_entry.grid(row=0, column=1)
+
+ikinci_deger_label = tk.Label(app, text="İkinci Değer:")
+ikinci_deger_label.grid(row=1, column=0)
+
+ikinci_deger_entry = tk.Entry(app)
+ikinci_deger_entry.grid(row=1, column=1)
+
+islem_radio1 = tk.Radiobutton(app, text="Toplama", variable=islem_secim, value=1)
+islem_radio1.grid(row=2, column=0)
+
+islem_radio2 = tk.Radiobutton(app, text="Çıkarma", variable=islem_secim, value=2)
+islem_radio2.grid(row=2, column=1)
+
+islem_radio3 = tk.Radiobutton(app, text="Çarpma", variable=islem_secim, value=3)
+islem_radio3.grid(row=3, column=0)
+
+islem_radio4 = tk.Radiobutton(app, text="Bölme", variable=islem_secim, value=4)
+islem_radio4.grid(row=3, column=1)
+
+hesapla_button = tk.Button(app, text="Hesapla", command=hesapla)
+hesapla_button.grid(row=4, columnspan=2)
+
+sonuc_label = tk.Label(app, text="")
+sonuc_label.grid(row=5, columnspan=2)
+
+app.mainloop()
+
+
